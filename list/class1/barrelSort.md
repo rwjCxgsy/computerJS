@@ -1,9 +1,10 @@
-### 桶排序
+# 桶排序
 
 速度快,但是占内存，实用于排列正整数，不适合浮点数,负数
 > 比如排序1-10000以内的数,创建10000一个数组，分别对应1-10000,比如999出现1一次，数组索引999增加一
 
-#### 书本源码（c语言）
+## 书本源码（c语言）
+
 ```c
 #include <stdio.h>
 
@@ -24,7 +25,7 @@ int main () {
     for (i = 1000; i >= 0; i--) {
         // 出现几次就打印几次
         for (j = 1; j <= book[i]; j++) {
-            printf("%d ",i);
+            printf("%d ", i);
         }
     }
     getchar();
@@ -38,9 +39,8 @@ int main () {
 // 输出
 // 1000 999 100 50 22 15 8 6 1 0
 ```
-***
 
-### JavaScript 代码
+## JavaScript 代码
 
 ```javascript
 function barrelSort (arr) {
@@ -58,7 +58,7 @@ function barrelSort (arr) {
         barrel[i]++
     }
     let result = []
-    // 返回
+    // 排序
     for(let i = 0; i < barrel.length; i++) {
         for (let j = 0; j < barrel[i]; j++) {
             result.push(i)
@@ -68,5 +68,4 @@ function barrelSort (arr) {
 }
 var arr = [1,3,4,62,1,5,16,12,435,13,12,54,27,9,99]
 console.log(barrelSort(arr))
-
 ```
