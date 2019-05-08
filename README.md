@@ -9,15 +9,15 @@
 
 ```javascript
 function barrelSort (arr) {
-    const max = Math.max(...arr)
+    const max = 435
     const barrel = Array(max + 1).fill(0)
     for (let i of arr) {
         barrel[i]++
     }
     let result = []
-    for(let _i = 0; _i < barrel.length; _i++) {
-        if (barrel[_i]) {
-            result = result.concat(Array(barrel[_i]).fill(_i))
+    for(let i = 0; i < barrel.length; i++) {
+        if (barrel[i]) {
+            result = result.concat(Array(barrel[i]).fill(i))
         }
     }
     return result
