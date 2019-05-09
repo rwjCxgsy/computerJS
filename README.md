@@ -17,7 +17,7 @@
 
 * [x] 解密QQ号 - 列队 [./list/class2/decodeQQ](./list/class2/decodeQQ.md)
 * [x] 解密回文 - 栈 [./list/class2/stack](./list/class2/stack.md)
-* [ ] 纸牌游戏 - 小猫钓鱼
+* [x] 纸牌游戏 - 小猫钓鱼 [./list/class2/catFish](./list/class2/catFish.md)
 * [ ] 链表
 * [ ] 模拟链表
 

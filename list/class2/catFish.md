@@ -41,22 +41,21 @@ void function () {
     function checkCard () {
         const {length} = desk
         const last  = desk[length - 1]
-        for (let i = 0; i < length - 1; i++) {
-            if (desk[i] === last) {
-                let takeCard = desk.slice(i)
-                console.log('有人要赢了', takeCard.join())
-                if (play === 1) {
-                    A = [...A, ...takeCard]
-                } else {
-                    B = [...B, ...takeCard]
-                }
-                console.log("%cA=>", 'color: green', A.join())
-                console.log("%cB=>", 'color: blue', B.join())
-                console.log('-------------------------')
-                desk = desk.slice(0, i)
-                return
-            }
+        const i = desk.indexOf(last)
+        if (i === -1) {
+            return false
         }
+        let takeCard = desk.slice(i)
+        console.log('有人要赢了', takeCard.join())
+        if (play === 1) {
+            A = [...A, ...takeCard]
+        } else {
+            B = [...B, ...takeCard]
+        }
+        console.log("%cA=>", 'color: green', A.join())
+        console.log("%cB=>", 'color: blue', B.join())
+        console.log('-------------------------')
+        desk = desk.slice(0, i)
     }
     
     function startGame () {
