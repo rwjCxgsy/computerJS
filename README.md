@@ -16,7 +16,7 @@
 ### 第二章 栈 列队 链表
 
 * [x] 解密QQ号 - 列队 [./list/class2/decodeQQ](./list/class2/decodeQQ.md)
-* [ ] 解密回文 - 栈
+* [ ] 解密回文 - 栈 [./list/class2/stack](./list/class2/stack.md)
 * [ ] 纸牌游戏 - 小猫钓鱼
 * [ ] 链表
 * [ ] 模拟链表
