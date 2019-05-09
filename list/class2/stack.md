@@ -107,18 +107,20 @@ int main () {
 
 function strBack (str = '123321') {
     const {length} = str
+    // 判断个数为奇数
+    const isOdd = length % 2 === 1
     let mid, i = 0, stack = [];
-    if (length % 2 === 0) {
+    if (!isOdd) {
         mid = length / 2 - 1
     } else {
         mid = (length + 1) / 2 -1
     }
     // 将前半部分入栈
-    for (i = 0 ; i < mid; i++) {
+    for (i = 0 ; i <= mid; i++) {
         stack.unshift(str[i])
     }
-    for (i = 0; i < mid; i++) {
-        if (stack[i] !== str[mid + i]) {
+    for (i = 0; i <= mid; i++) {
+        if (stack[i] !== str[mid + (isOdd ? 1 : 0)  + i]) {
             return false
         }
     }
