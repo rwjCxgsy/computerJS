@@ -1,0 +1,402 @@
+<!DOCTYPE html><html><head>
+      <title>quicksort</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h1 class="mume-header" id="%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F">&#x5FEB;&#x901F;&#x6392;&#x5E8F;</h1>
+
+<p>&#x6700;&#x5E38;&#x7528;&#x7684;&#x6392;&#x5E8F;&#x65B9;&#x6CD5;</p>
+<blockquote>
+<p>&#x627E;&#x4E00;&#x4E2A;&#x57FA;&#x51C6;&#x6570;&#xFF0C;&#x5C0F;&#x4E8E;&#x57FA;&#x51C6;&#x6570;&#x7684;&#x79FB;&#x52A8;&#x5230;&#x5DE6;&#x8FB9;&#xFF0C;&#x5927;&#x4E8E;&#x57FA;&#x51C6;&#x6570;&#x7684;&#x79FB;&#x52A8;&#x5230;&#x53F3;&#x8FB9;&#xFF0C;&#x5FAA;&#x73AF;&#x9012;&#x5F52;</p>
+</blockquote>
+<h2 class="mume-header" id="%E5%9B%BE%E8%A7%A3">&#x56FE;&#x89E3;</h2>
+
+<p><img src="../../images/quick.jpg" alt="&#x5FEB;&#x901F;&#x6392;&#x5E8F;"></p>
+<h2 class="mume-header" id="%E4%B9%A6%E6%9C%AC%E6%BA%90%E7%A0%81c%E8%AF%AD%E8%A8%80">&#x4E66;&#x672C;&#x6E90;&#x7801;&#xFF08;c&#x8BED;&#x8A00;&#xFF09;</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"># <span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword">int</span> a<span class="token punctuation">[</span><span class="token number">101</span><span class="token punctuation">]</span><span class="token punctuation">,</span> n<span class="token punctuation">;</span> <span class="token comment">// &#x5B9A;&#x4E49;&#x5168;&#x5C40;&#x53D8;&#x91CF;</span>
+
+<span class="token keyword">int</span> <span class="token function">quickSort</span> <span class="token punctuation">(</span><span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> t<span class="token punctuation">,</span> temp<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">&gt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    temp <span class="token operator">=</span> a<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// temp &#x4E2D;&#x5C31;&#x662F;&#x5B58;&#x5728;&#x7684;&#x57FA;&#x51C6;&#x6570;</span>
+    i <span class="token operator">=</span> left<span class="token punctuation">;</span>
+    j <span class="token operator">=</span> right<span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token comment">// &#x4ECE;&#x53F3;&#x5F80;&#x5DE6;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> temp <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            j<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// &#x4ECE;&#x5DE6;&#x5F80;&#x53F3;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            t <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            a<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// &#x5C06;&#x57FA;&#x6570;&#x5F52;&#x4E3A;</span>
+    a<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token comment">// &#x9012;&#x5F52;&#x8FC7;&#x7A0B;</span>
+    <span class="token function">quickSort</span><span class="token punctuation">(</span>teft<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">quickSort</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
+    <span class="token comment">// &#x8BFB;&#x53D6;&#x6570;&#x636E;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">&apos;%d&apos;</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%d&quot;</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">quickSort</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h2 class="mume-header" id="javascript">JavaScript</h2>
+
+<pre data-role="codeBlock" data-info="javascript" class="language-javascript"><span class="token keyword">function</span> <span class="token function">quicksort</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">function</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token parameter">left<span class="token punctuation">,</span> right</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> t<span class="token punctuation">,</span> temp<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">&gt;</span> right<span class="token punctuation">)</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+        temp <span class="token operator">=</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">//temp&#x4E2D;&#x5B58;&#x7684;&#x5C31;&#x662F;&#x57FA;&#x51C6;&#x6570;</span>
+        i <span class="token operator">=</span> left<span class="token punctuation">;</span>
+        j <span class="token operator">=</span> right<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">//&#x987A;&#x5E8F;&#x5F88;&#x91CD;&#x8981;&#xFF0C;&#x8981;&#x5148;&#x4ECE;&#x53F3;&#x8FB9;&#x5F00;&#x59CB;&#x627E;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> temp <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                j<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment">//&#x518D;&#x627E;&#x53F3;&#x8FB9;&#x7684;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment">//&#x4EA4;&#x6362;&#x4E24;&#x4E2A;&#x6570;&#x5728;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x4F4D;&#x7F6E;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                t <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">//&#x6700;&#x7EC8;&#x5C06;&#x57FA;&#x51C6;&#x6570;&#x5F52;&#x4F4D;</span>
+        arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+        <span class="token function">sort</span><span class="token punctuation">(</span>left<span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x7EE7;&#x7EED;&#x5904;&#x7406;&#x5DE6;&#x8FB9;&#x7684;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x9012;&#x5F52;&#x7684;&#x8FC7;&#x7A0B;</span>
+        <span class="token function">sort</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#x7EE7;&#x7EED;&#x5904;&#x7406;&#x53F3;&#x8FB9;&#x7684; &#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x9012;&#x5F52;&#x7684;&#x8FC7;&#x7A0B;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">sort</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> arr<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> arr
+<span class="token punctuation">}</span>
+</pre><h3 class="mume-header" id="%E4%B9%A6%E6%9C%AC%E5%8E%9F%E6%96%87">&#x4E66;&#x672C;&#x539F;&#x6587;</h3>
+
+<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x5BF9;&#x201C;6  1  2 7  9  3  4  5 10  8&#x201D;&#x8FD9;&#x4E2A;10&#x4E2A;&#x6570;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#x3002;&#x9996;&#x5148;&#x5728;&#x8FD9;&#x4E2A;&#x5E8F;&#x5217;&#x4E2D;&#x968F;&#x4FBF;&#x627E;&#x4E00;&#x4E2A;&#x6570;&#x4F5C;&#x4E3A;&#x57FA;&#x51C6;&#x6570;&#xFF08;&#x4E0D;&#x8981;&#x88AB;&#x8FD9;&#x4E2A;&#x540D;&#x8BCD;&#x5413;&#x5230;&#x4E86;&#xFF0C;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7528;&#x6765;&#x53C2;&#x7167;&#x7684;&#x6570;&#xFF0C;&#x5F85;&#x4F1A;&#x4F60;&#x5C31;&#x77E5;&#x9053;&#x5B83;&#x7528;&#x6765;&#x505A;&#x5565;&#x7684;&#x4E86;&#xFF09;&#x3002;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#xFF0C;&#x5C31;&#x8BA9;&#x7B2C;&#x4E00;&#x4E2A;&#x6570;6&#x4F5C;&#x4E3A;&#x57FA;&#x51C6;&#x6570;&#x5427;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x9700;&#x8981;&#x5C06;&#x8FD9;&#x4E2A;&#x5E8F;&#x5217;&#x4E2D;&#x6240;&#x6709;&#x6BD4;&#x57FA;&#x51C6;&#x6570;&#x5927;&#x7684;&#x6570;&#x653E;&#x5728;6&#x7684;&#x53F3;&#x8FB9;&#xFF0C;&#x6BD4;&#x57FA;&#x51C6;&#x6570;&#x5C0F;&#x7684;&#x6570;&#x653E;&#x5728;6&#x7684;&#x5DE6;&#x8FB9;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E0B;&#x9762;&#x8FD9;&#x79CD;&#x6392;&#x5217;&#x3002;</p>
+<p>3  1  2 5  4  6  9 7  10</p>
+<p>&#x5728;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x6570;&#x5B57;6&#x5728;&#x5E8F;&#x5217;&#x7684;&#x7B2C;1&#x4F4D;&#x3002;&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x6807;&#x662F;&#x5C06;6&#x632A;&#x5230;&#x5E8F;&#x5217;&#x4E2D;&#x95F4;&#x7684;&#x67D0;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5047;&#x8BBE;&#x8FD9;&#x4E2A;&#x4F4D;&#x7F6E;&#x662F;k&#x3002;&#x73B0;&#x5728;&#x5C31;&#x9700;&#x8981;&#x5BFB;&#x627E;&#x8FD9;&#x4E2A;k&#xFF0C;&#x5E76;&#x4E14;&#x4EE5;&#x7B2C;k&#x4F4D;&#x4E3A;&#x5206;&#x754C;&#x70B9;&#xFF0C;&#x5DE6;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;6&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;6&#x3002;&#x60F3;&#x4E00;&#x60F3;&#xFF0C;&#x4F60;&#x6709;&#x529E;&#x6CD5;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x8FD9;&#x70B9;&#x5417;&#xFF1F;</p>
+<p>&#x7ED9;&#x4F60;&#x4E00;&#x4E2A;&#x63D0;&#x793A;&#x5427;&#x3002;&#x8BF7;&#x56DE;&#x5FC6;&#x4E00;&#x4E0B;&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#xFF0C;&#x662F;&#x5982;&#x4F55;&#x901A;&#x8FC7;&#x201C;&#x4EA4;&#x6362;&#x201D;&#xFF0C;&#x4E00;&#x6B65;&#x6B65;&#x8BA9;&#x6BCF;&#x4E2A;&#x6570;&#x5F52;&#x4F4D;&#x7684;&#x3002;&#x6B64;&#x65F6;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x201C;&#x4EA4;&#x6362;&#x201D;&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x8FBE;&#x5230;&#x76EE;&#x7684;&#x3002;&#x5177;&#x4F53;&#x662F;&#x5982;&#x4F55;&#x4E00;&#x6B65;&#x6B65;&#x4EA4;&#x6362;&#x5462;&#xFF1F;&#x600E;&#x6837;&#x4EA4;&#x6362;&#x624D;&#x65E2;&#x65B9;&#x4FBF;&#x53C8;&#x8282;&#x7701;&#x65F6;&#x95F4;&#x5462;&#xFF1F;&#x5148;&#x522B;&#x6025;&#x7740;&#x5F80;&#x4E0B;&#x770B;&#xFF0C;&#x62FF;&#x51FA;&#x7B14;&#x6765;&#xFF0C;&#x5728;&#x7EB8;&#x4E0A;&#x753B;&#x753B;&#x770B;&#x3002;&#x6211;&#x9AD8;&#x4E2D;&#x65F6;&#x7B2C;&#x4E00;&#x6B21;&#x5B66;&#x4E60;&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x89C9;&#x5F97;&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x5F88;&#x6D6A;&#x8D39;&#x65F6;&#x95F4;&#xFF0C;&#x6BCF;&#x6B21;&#x90FD;&#x53EA;&#x80FD;&#x5BF9;&#x76F8;&#x90BB;&#x7684;&#x4E24;&#x4E2A;&#x6570;&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x8FD9;&#x663E;&#x7136;&#x592A;&#x4E0D;&#x5408;&#x7406;&#x4E86;&#x3002;&#x4E8E;&#x662F;&#x6211;&#x5C31;&#x60F3;&#x4E86;&#x4E00;&#x4E2A;&#x529E;&#x6CD5;&#xFF0C;&#x540E;&#x6765;&#x624D;&#x77E5;&#x9053;&#x539F;&#x6765;&#x8FD9;&#x5C31;&#x662F;&#x201C;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x201D;&#xFF0C;&#x8BF7;&#x5141;&#x8BB8;&#x6211;&#x5C0F;&#x5C0F;&#x7684;&#x81EA;&#x604B;&#x4E00;&#x4E0B;(<sup>o</sup>)&#x3002;</p>
+<p>&#x65B9;&#x6CD5;&#x5176;&#x5B9E;&#x5F88;&#x7B80;&#x5355;&#xFF1A;&#x5206;&#x522B;&#x4ECE;&#x521D;&#x59CB;&#x5E8F;&#x5217;&#x201C;6  1  2 7  9  3  4  5 10  8&#x201D;&#x4E24;&#x7AEF;&#x5F00;&#x59CB;&#x201C;&#x63A2;&#x6D4B;&#x201D;&#x3002;&#x5148;&#x4ECE;&#x53F3;&#x5F80;&#x5DE6;&#x627E;&#x4E00;&#x4E2A;&#x5C0F;&#x4E8E;6&#x7684;&#x6570;&#xFF0C;&#x518D;&#x4ECE;&#x5DE6;&#x5F80;&#x53F3;&#x627E;&#x4E00;&#x4E2A;&#x5927;&#x4E8E;6&#x7684;&#x6570;&#xFF0C;&#x7136;&#x540E;&#x4EA4;&#x6362;&#x4ED6;&#x4EEC;&#x3002;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x7528;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;i&#x548C;j&#xFF0C;&#x5206;&#x522B;&#x6307;&#x5411;&#x5E8F;&#x5217;&#x6700;&#x5DE6;&#x8FB9;&#x548C;&#x6700;&#x53F3;&#x8FB9;&#x3002;&#x6211;&#x4EEC;&#x4E3A;&#x8FD9;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x8D77;&#x4E2A;&#x597D;&#x542C;&#x7684;&#x540D;&#x5B57;&#x201C;&#x54E8;&#x5175;i&#x201D;&#x548C;&#x201C;&#x54E8;&#x5175;j&#x201D;&#x3002;&#x521A;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#x8BA9;&#x54E8;&#x5175;i&#x6307;&#x5411;&#x5E8F;&#x5217;&#x7684;&#x6700;&#x5DE6;&#x8FB9;&#xFF08;&#x5373;i=1&#xFF09;&#xFF0C;&#x6307;&#x5411;&#x6570;&#x5B57;6&#x3002;&#x8BA9;&#x54E8;&#x5175;j&#x6307;&#x5411;&#x5E8F;&#x5217;&#x7684;&#x6700;&#x53F3;&#x8FB9;&#xFF08;&#x5373;j=10&#xFF09;&#xFF0C;&#x6307;&#x5411;&#x6570;&#x5B57;8&#x3002;</p>
+<p>&#x9996;&#x5148;&#x54E8;&#x5175;j&#x5F00;&#x59CB;&#x51FA;&#x52A8;&#x3002;&#x56E0;&#x4E3A;&#x6B64;&#x5904;&#x8BBE;&#x7F6E;&#x7684;&#x57FA;&#x51C6;&#x6570;&#x662F;&#x6700;&#x5DE6;&#x8FB9;&#x7684;&#x6570;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x8BA9;&#x54E8;&#x5175;j&#x5148;&#x51FA;&#x52A8;&#xFF0C;&#x8FD9;&#x4E00;&#x70B9;&#x975E;&#x5E38;&#x91CD;&#x8981;&#xFF08;&#x8BF7;&#x81EA;&#x5DF1;&#x60F3;&#x4E00;&#x60F3;&#x4E3A;&#x4EC0;&#x4E48;&#xFF09;&#x3002;&#x54E8;&#x5175;j&#x4E00;&#x6B65;&#x4E00;&#x6B65;&#x5730;&#x5411;&#x5DE6;&#x632A;&#x52A8;&#xFF08;&#x5373;j--&#xFF09;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x5C0F;&#x4E8E;6&#x7684;&#x6570;&#x505C;&#x4E0B;&#x6765;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x54E8;&#x5175;i&#x518D;&#x4E00;&#x6B65;&#x4E00;&#x6B65;&#x5411;&#x53F3;&#x632A;&#x52A8;&#xFF08;&#x5373;i++&#xFF09;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x6570;&#x5927;&#x4E8E;6&#x7684;&#x6570;&#x505C;&#x4E0B;&#x6765;&#x3002;&#x6700;&#x540E;&#x54E8;&#x5175;j&#x505C;&#x5728;&#x4E86;&#x6570;&#x5B57;5&#x9762;&#x524D;&#xFF0C;&#x54E8;&#x5175;i&#x505C;&#x5728;&#x4E86;&#x6570;&#x5B57;7&#x9762;&#x524D;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x4EA4;&#x6362;&#x54E8;&#x5175;i&#x548C;&#x54E8;&#x5175;j&#x6240;&#x6307;&#x5411;&#x7684;&#x5143;&#x7D20;&#x7684;&#x503C;&#x3002;&#x4EA4;&#x6362;&#x4E4B;&#x540E;&#x7684;&#x5E8F;&#x5217;&#x5982;&#x4E0B;&#x3002;</p>
+<p>6  1  2  5  9 3  4  7  10  8</p>
+<p>&#x5230;&#x6B64;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x4EA4;&#x6362;&#x7ED3;&#x675F;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x5F00;&#x59CB;&#x54E8;&#x5175;j&#x7EE7;&#x7EED;&#x5411;&#x5DE6;&#x632A;&#x52A8;&#xFF08;&#x518D;&#x53CB;&#x60C5;&#x63D0;&#x9192;&#xFF0C;&#x6BCF;&#x6B21;&#x5FC5;&#x987B;&#x662F;&#x54E8;&#x5175;j&#x5148;&#x51FA;&#x53D1;&#xFF09;&#x3002;&#x4ED6;&#x53D1;&#x73B0;&#x4E86;4&#xFF08;&#x6BD4;&#x57FA;&#x51C6;&#x6570;6&#x8981;&#x5C0F;&#xFF0C;&#x6EE1;&#x8DB3;&#x8981;&#x6C42;&#xFF09;&#x4E4B;&#x540E;&#x505C;&#x4E86;&#x4E0B;&#x6765;&#x3002;&#x54E8;&#x5175;i&#x4E5F;&#x7EE7;&#x7EED;&#x5411;&#x53F3;&#x632A;&#x52A8;&#x7684;&#xFF0C;&#x4ED6;&#x53D1;&#x73B0;&#x4E86;9&#xFF08;&#x6BD4;&#x57FA;&#x51C6;&#x6570;6&#x8981;&#x5927;&#xFF0C;&#x6EE1;&#x8DB3;&#x8981;&#x6C42;&#xFF09;&#x4E4B;&#x540E;&#x505C;&#x4E86;&#x4E0B;&#x6765;&#x3002;&#x6B64;&#x65F6;&#x518D;&#x6B21;&#x8FDB;&#x884C;&#x4EA4;&#x6362;&#xFF0C;&#x4EA4;&#x6362;&#x4E4B;&#x540E;&#x7684;&#x5E8F;&#x5217;&#x5982;&#x4E0B;&#x3002;<br>
+6  1  2 5  4  3  9  7 10  8</p>
+<p>&#x7B2C;&#x4E8C;&#x6B21;&#x4EA4;&#x6362;&#x7ED3;&#x675F;&#xFF0C;&#x201C;&#x63A2;&#x6D4B;&#x201D;&#x7EE7;&#x7EED;&#x3002;&#x54E8;&#x5175;j&#x7EE7;&#x7EED;&#x5411;&#x5DE6;&#x632A;&#x52A8;&#xFF0C;&#x4ED6;&#x53D1;&#x73B0;&#x4E86;3&#xFF08;&#x6BD4;&#x57FA;&#x51C6;&#x6570;6&#x8981;&#x5C0F;&#xFF0C;&#x6EE1;&#x8DB3;&#x8981;&#x6C42;&#xFF09;&#x4E4B;&#x540E;&#x53C8;&#x505C;&#x4E86;&#x4E0B;&#x6765;&#x3002;&#x54E8;&#x5175;i&#x7EE7;&#x7EED;&#x5411;&#x53F3;&#x79FB;&#x52A8;&#xFF0C;&#x7CDF;&#x5566;&#xFF01;&#x6B64;&#x65F6;&#x54E8;&#x5175;i&#x548C;&#x54E8;&#x5175;j&#x76F8;&#x9047;&#x4E86;&#xFF0C;&#x54E8;&#x5175;i&#x548C;&#x54E8;&#x5175;j&#x90FD;&#x8D70;&#x5230;3&#x9762;&#x524D;&#x3002;&#x8BF4;&#x660E;&#x6B64;&#x65F6;&#x201C;&#x63A2;&#x6D4B;&#x201D;&#x7ED3;&#x675F;&#x3002;&#x6211;&#x4EEC;&#x5C06;&#x57FA;&#x51C6;&#x6570;6&#x548C;3&#x8FDB;&#x884C;&#x4EA4;&#x6362;&#x3002;&#x4EA4;&#x6362;&#x4E4B;&#x540E;&#x7684;&#x5E8F;&#x5217;&#x5982;&#x4E0B;&#x3002;<br>
+3  1 2  5  4  6  9 7  10  8</p>
+<p>&#x5230;&#x6B64;&#x7B2C;&#x4E00;&#x8F6E;&#x201C;&#x63A2;&#x6D4B;&#x201D;&#x771F;&#x6B63;&#x7ED3;&#x675F;&#x3002;&#x6B64;&#x65F6;&#x4EE5;&#x57FA;&#x51C6;&#x6570;6&#x4E3A;&#x5206;&#x754C;&#x70B9;&#xFF0C;6&#x5DE6;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;6&#xFF0C;6&#x53F3;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;6&#x3002;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#x521A;&#x624D;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5176;&#x5B9E;&#x54E8;&#x5175;j&#x7684;&#x4F7F;&#x547D;&#x5C31;&#x662F;&#x8981;&#x627E;&#x5C0F;&#x4E8E;&#x57FA;&#x51C6;&#x6570;&#x7684;&#x6570;&#xFF0C;&#x800C;&#x54E8;&#x5175;i&#x7684;&#x4F7F;&#x547D;&#x5C31;&#x662F;&#x8981;&#x627E;&#x5927;&#x4E8E;&#x57FA;&#x51C6;&#x6570;&#x7684;&#x6570;&#xFF0C;&#x76F4;&#x5230;i&#x548C;j&#x78B0;&#x5934;&#x4E3A;&#x6B62;&#x3002;</p>
+<p>OK&#xFF0C;&#x89E3;&#x91CA;&#x5B8C;&#x6BD5;&#x3002;&#x73B0;&#x5728;&#x57FA;&#x51C6;&#x6570;6&#x5DF2;&#x7ECF;&#x5F52;&#x4F4D;&#xFF0C;&#x5B83;&#x6B63;&#x597D;&#x5904;&#x5728;&#x5E8F;&#x5217;&#x7684;&#x7B2C;6&#x4F4D;&#x3002;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x5C06;&#x539F;&#x6765;&#x7684;&#x5E8F;&#x5217;&#xFF0C;&#x4EE5;6&#x4E3A;&#x5206;&#x754C;&#x70B9;&#x62C6;&#x5206;&#x6210;&#x4E86;&#x4E24;&#x4E2A;&#x5E8F;&#x5217;&#xFF0C;&#x5DE6;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x662F;&#x201C;3  1 2  5  4&#x201D;&#xFF0C;&#x53F3;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x662F;&#x201C;9  7  10  8&#x201D;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x8FD8;&#x9700;&#x8981;&#x5206;&#x522B;&#x5904;&#x7406;&#x8FD9;&#x4E24;&#x4E2A;&#x5E8F;&#x5217;&#x3002;&#x56E0;&#x4E3A;6&#x5DE6;&#x8FB9;&#x548C;&#x53F3;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x76EE;&#x524D;&#x90FD;&#x8FD8;&#x662F;&#x5F88;&#x6DF7;&#x4E71;&#x7684;&#x3002;&#x4E0D;&#x8FC7;&#x4E0D;&#x8981;&#x7D27;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x638C;&#x63E1;&#x4E86;&#x65B9;&#x6CD5;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x53EA;&#x8981;&#x6A21;&#x62DF;&#x521A;&#x624D;&#x7684;&#x65B9;&#x6CD5;&#x5206;&#x522B;&#x5904;&#x7406;6&#x5DE6;&#x8FB9;&#x548C;&#x53F3;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x5373;&#x53EF;&#x3002;&#x73B0;&#x5728;&#x5148;&#x6765;&#x5904;&#x7406;6&#x5DE6;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x73B0;&#x5427;&#x3002;</p>
+<p>&#x5DE6;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x662F;&#x201C;3  1  2 5  4&#x201D;&#x3002;&#x8BF7;&#x5C06;&#x8FD9;&#x4E2A;&#x5E8F;&#x5217;&#x4EE5;3&#x4E3A;&#x57FA;&#x51C6;&#x6570;&#x8FDB;&#x884C;&#x8C03;&#x6574;&#xFF0C;&#x4F7F;&#x5F97;3&#x5DE6;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;3&#xFF0C;3&#x53F3;&#x8FB9;&#x7684;&#x6570;&#x90FD;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;3&#x3002;&#x597D;&#x4E86;&#x5F00;&#x59CB;&#x52A8;&#x7B14;&#x5427;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x6A21;&#x62DF;&#x7684;&#x6CA1;&#x6709;&#x9519;&#xFF0C;&#x8C03;&#x6574;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#x7684;&#x5E8F;&#x5217;&#x7684;&#x987A;&#x5E8F;&#x5E94;&#x8BE5;&#x662F;&#x3002;<br>
+2  1  3  5  4</p>
+<p>OK&#xFF0C;&#x73B0;&#x5728;3&#x5DF2;&#x7ECF;&#x5F52;&#x4F4D;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x9700;&#x8981;&#x5904;&#x7406;3&#x5DE6;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x201C;2 1&#x201D;&#x548C;&#x53F3;&#x8FB9;&#x7684;&#x5E8F;&#x5217;&#x201C;5 4&#x201D;&#x3002;&#x5BF9;&#x5E8F;&#x5217;&#x201C;2 1&#x201D;&#x4EE5;2&#x4E3A;&#x57FA;&#x51C6;&#x6570;&#x8FDB;&#x884C;&#x8C03;&#x6574;&#xFF0C;&#x5904;&#x7406;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#x7684;&#x5E8F;&#x5217;&#x4E3A;&#x201C;1 2&#x201D;&#xFF0C;&#x5230;&#x6B64;2&#x5DF2;&#x7ECF;&#x5F52;&#x4F4D;&#x3002;&#x5E8F;&#x5217;&#x201C;1&#x201D;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x6570;&#xFF0C;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x4EFB;&#x4F55;&#x5904;&#x7406;&#x3002;&#x81F3;&#x6B64;&#x6211;&#x4EEC;&#x5BF9;&#x5E8F;&#x5217;&#x201C;2 1&#x201D;&#x5DF2;&#x5168;&#x90E8;&#x5904;&#x7406;&#x5B8C;&#x6BD5;&#xFF0C;&#x5F97;&#x5230;&#x5E8F;&#x5217;&#x662F;&#x201C;1 2&#x201D;&#x3002;&#x5E8F;&#x5217;&#x201C;5 4&#x201D;&#x7684;&#x5904;&#x7406;&#x4E5F;&#x4EFF;&#x7167;&#x6B64;&#x65B9;&#x6CD5;&#xFF0C;&#x6700;&#x540E;&#x5F97;&#x5230;&#x7684;&#x5E8F;&#x5217;&#x5982;&#x4E0B;&#x3002;<br>
+1  2  3 4  5  6 9  7  10  8</p>
+<p>&#x5BF9;&#x4E8E;&#x5E8F;&#x5217;&#x201C;9  7  10  8&#x201D;&#x4E5F;&#x6A21;&#x62DF;&#x521A;&#x624D;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x76F4;&#x5230;&#x4E0D;&#x53EF;&#x62C6;&#x5206;&#x51FA;&#x65B0;&#x7684;&#x5B50;&#x5E8F;&#x5217;&#x4E3A;&#x6B62;&#x3002;&#x6700;&#x7EC8;&#x5C06;&#x4F1A;&#x5F97;&#x5230;&#x8FD9;&#x6837;&#x7684;&#x5E8F;&#x5217;&#xFF0C;&#x5982;&#x4E0B;&#x3002;<br>
+1  2  3 4  5  6  7  8 9  10</p>
+<p>&#x5230;&#x6B64;&#xFF0C;&#x6392;&#x5E8F;&#x5B8C;&#x5168;&#x7ED3;&#x675F;&#x3002;&#x7EC6;&#x5FC3;&#x7684;&#x540C;&#x5B66;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x53D1;&#x73B0;&#xFF0C;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x7684;&#x6BCF;&#x4E00;&#x8F6E;&#x5904;&#x7406;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5C06;&#x8FD9;&#x4E00;&#x8F6E;&#x7684;&#x57FA;&#x51C6;&#x6570;&#x5F52;&#x4F4D;&#xFF0C;&#x76F4;&#x5230;&#x6240;&#x6709;&#x7684;&#x6570;&#x90FD;&#x5F52;&#x4F4D;&#x4E3A;&#x6B62;&#xFF0C;&#x6392;&#x5E8F;&#x5C31;&#x7ED3;&#x675F;&#x4E86;&#x3002;&#x4E0B;&#x9762;&#x4E0A;&#x4E2A;&#x9738;&#x6C14;&#x7684;&#x56FE;&#x6765;&#x63CF;&#x8FF0;&#x4E0B;&#x6574;&#x4E2A;&#x7B97;&#x6CD5;&#x7684;&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p>&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x4E4B;&#x6240;&#x6BD4;&#x8F83;&#x5FEB;&#xFF0C;&#x56E0;&#x4E3A;&#x76F8;&#x6BD4;&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#xFF0C;&#x6BCF;&#x6B21;&#x4EA4;&#x6362;&#x662F;&#x8DF3;&#x8DC3;&#x5F0F;&#x7684;&#x3002;&#x6BCF;&#x6B21;&#x6392;&#x5E8F;&#x7684;&#x65F6;&#x5019;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x57FA;&#x51C6;&#x70B9;&#xFF0C;&#x5C06;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;&#x57FA;&#x51C6;&#x70B9;&#x7684;&#x6570;&#x5168;&#x90E8;&#x653E;&#x5230;&#x57FA;&#x51C6;&#x70B9;&#x7684;&#x5DE6;&#x8FB9;&#xFF0C;&#x5C06;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;&#x57FA;&#x51C6;&#x70B9;&#x7684;&#x6570;&#x5168;&#x90E8;&#x653E;&#x5230;&#x57FA;&#x51C6;&#x70B9;&#x7684;&#x53F3;&#x8FB9;&#x3002;&#x8FD9;&#x6837;&#x5728;&#x6BCF;&#x6B21;&#x4EA4;&#x6362;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4E0D;&#x4F1A;&#x50CF;&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x4E00;&#x6837;&#x6BCF;&#x6B21;&#x53EA;&#x80FD;&#x5728;&#x76F8;&#x90BB;&#x7684;&#x6570;&#x4E4B;&#x95F4;&#x8FDB;&#x884C;&#x4EA4;&#x6362;&#xFF0C;&#x4EA4;&#x6362;&#x7684;&#x8DDD;&#x79BB;&#x5C31;&#x5927;&#x7684;&#x591A;&#x4E86;&#x3002;&#x56E0;&#x6B64;&#x603B;&#x7684;&#x6BD4;&#x8F83;&#x548C;&#x4EA4;&#x6362;&#x6B21;&#x6570;&#x5C31;&#x5C11;&#x4E86;&#xFF0C;&#x901F;&#x5EA6;&#x81EA;&#x7136;&#x5C31;&#x63D0;&#x9AD8;&#x4E86;&#x3002;&#x5F53;&#x7136;&#x5728;&#x6700;&#x574F;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4ECD;&#x53EF;&#x80FD;&#x662F;&#x76F8;&#x90BB;&#x7684;&#x4E24;&#x4E2A;&#x6570;&#x8FDB;&#x884C;&#x4E86;&#x4EA4;&#x6362;&#x3002;&#x56E0;&#x6B64;&#x5FEB;&#x901F;&#x6392;&#x5E8F;&#x7684;&#x6700;&#x5DEE;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x548C;&#x5192;&#x6CE1;&#x6392;&#x5E8F;&#x662F;&#x4E00;&#x6837;&#x7684;&#x90FD;&#x662F;O(N2)&#xFF0C;&#x5B83;&#x7684;&#x5E73;&#x5747;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(NlogN)&#x3002;</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
