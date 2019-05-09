@@ -18,9 +18,11 @@ void function () {
     function isEnd () {
         if (!A.length) {
             console.log('B win')
+            console.log("%cB=>", 'color: blue', B.join())
             return true
         } else if (!B.length) {
             console.log("A win")
+            console.log("%cA=>", 'color: green', A.join())
             return true
         }
         return false
