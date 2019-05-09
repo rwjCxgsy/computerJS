@@ -5,7 +5,7 @@
 
 ## 图解
 
-![快速排序](../../images/maopao.jpg)
+![快速排序](../../images/quick.jpg)
 
 ## 书本源码（c语言）
 

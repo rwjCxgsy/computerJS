@@ -3,7 +3,11 @@
 不浪费内存但是浪费费时间
 > 马冒泡排序基本思想：每次比较两个相邻的元素，如果它们顺序错误就交换位置
 
-## 书本源码（c语言）
+## 图解
+
+![快速排序](../../images/maopao.gif)
+
+### 书本源码（c语言）
 
 ```C
 #include <stdio.h>
@@ -41,7 +45,7 @@ int main () {
 
 ```
 
-## javascript代码
+### javascript代码
 
 ```javascript
 
