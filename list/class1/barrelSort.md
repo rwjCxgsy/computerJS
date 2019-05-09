@@ -91,31 +91,25 @@ function barrelSort (arr) {
             max = v;
         }
     })
+    // 设置每个桶的区间
     const barrelRange = max / length;
-    console.log(barrelRange);
     // 初始化桶
     let barrel = [];
     for (let i = 0; i <= length; i++) {
         barrel[i] = []
     }
-    console.log(barrel);
     // 把对应的数放到对应的桶中
-    out: for (let i of arr) {
+    for (let i of arr) {
         const index = i / barrelRange | 0
         const {length} = barrel[index]
-        if (!length) {
-            barrel[index].push(i);
-            continue;
-        }
-        inner: for (let j = 0; j < length; i++) {
+        let min = 0
+        for (let j = 1; j < length; j++) {
             if (barrel[index][j] < i) {
-                barrel[index].splice(j, 0, i)
-                break out
+                min = j
             }
         }
-        barrel[index].push(i);
+        barrel[index].splice(min ? min + 1 : 0, 0, i)
     }
-    console.log(barrel);
     let result = []
     // 排序
     for(let i = 0; i < barrel.length; i++) {
