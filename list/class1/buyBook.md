@@ -68,7 +68,7 @@ function buyBook(books = [20, 40, 32, 67, 40, 20, 89, 30, 04, 00, 15]) {
             }
         }
     }
-    // 去重 
+    // 去重
     // 第一种
     const result_1 = [...new Set(books)]
     /*
@@ -87,7 +87,7 @@ function buyBook(books = [20, 40, 32, 67, 40, 20, 89, 30, 04, 00, 15]) {
             result_3.push(books[i]);
         }
     }
-    // 第三种 filter 
+    // 第三种 filter
     const result_4 = books.filter((v, i) => {
         return books.indexOf(v, 0) === i
     })

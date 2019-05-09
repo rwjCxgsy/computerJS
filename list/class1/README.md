@@ -7,7 +7,7 @@
 
 ## bubbleSort.md 冒泡排序
 
-时间复杂度 
+时间复杂度
 ![复杂度](http://latex.codecogs.com/gif.latex?O(N^2))
 
 ## quickSort.md 快速排序
