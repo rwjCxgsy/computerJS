@@ -21,5 +21,77 @@
 ## 书本源码
 
 ```c
+# include <stido.h>
+int main () {
+    int a[101] ,n ,i ,j ,t;
+    scanf("%d", &n);
+    // 循环读入n个图书
+    for (i = 1; i <= n; i ++) {
+        scanf("%d", &a[i]);
+    }
 
+    // 开始冒泡
+    for (i = 1; i <= n - 1; i++) {
+        for (j = 1; j < n - i; j++) {
+            if (a[j] > a[j + 1]) {
+                t = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = t;
+            }
+        }
+    }
+    // 输出第一个数
+    printf("%d", a[1]);
+
+    for (i = 2; i <= n; i++) {
+        // 比较相邻的数
+        if (a[i] != a[i - 1]) {
+            printf("%d", a[i]);
+        }
+    }
+    getchar();
+    getchar();
+    return 0;
+}
+```
+
+### JavaScript 代码
+
+```javascript
+function buyBook(books = [20, 40, 32, 67, 40, 20, 89, 30, 04, 00, 15]) {
+    const {length} = books
+    // 排序
+    for (let i = 0; i < length; i++) {
+        for (let j = 0; j < length - i; j++) {
+            if (books[j] > books[j + 1]) {
+                [books[j], books[j + 1]] = [books[j + 1], books[j]]
+            }
+        }
+    }
+    // 去重 
+    // 第一种
+    const result_1 = [...new Set(books)]
+    /*
+        申明一个空数组result_2，用于存储
+        forEach 循环遍历每一项，用result_2来查找是否具有该值
+    */
+    const result_2 = []
+    books.forEach(v => {
+        // 用includes 判断,还可以用indexOf
+        !result_2.includes(v) && result_2.push(v);
+    })
+    // 第三种 (数组必须为排序后的数组)
+    const result_3 = [books[0]]
+    for (let i = 1; i < length; i++) {
+        if (books[i] !== books[i - 1]) {
+            result_3.push(books[i]);
+        }
+    }
+    // 第三种 filter 
+    const result_4 = books.filter((v, i) => {
+        return books.indexOf(v, 0) === i
+    })
+    console.log(result_4, result_3, result_3, result_3);
+}
+buyBook()
 ```
