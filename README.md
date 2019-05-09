@@ -8,9 +8,9 @@
 
 ### 第一章 一大波数正在靠近 --- 排序
 
-* [x] 最快速的排序 - 桶排序
-* [x] 邻居好说话 - 冒泡排序
-* [x] 最常用的排序 - 快速排序
+* [x] 最快速的排序 - 桶排序 [./list/class1/barrelSort.md](/list/class1/barrelSort.md)
+* [x] 邻居好说话 - 冒泡排序 [./list/class1/BubbleSort.md](/list/class1/BubbleSort.md)
+* [x] 最常用的排序 - 快速排序 [./list/class1/quickSort.md](/list/class1/quickSort.md)
 * [ ] 小哼买书
 
 ### 第二章 栈 列队 链表
