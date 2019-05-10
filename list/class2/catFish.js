@@ -72,3 +72,13 @@ void function () {
     }
     startGame()
 } ()
+
+
+const start = Date.now()
+const end = Date.now()
+let i = 0
+while (end - start <= 1000) {
+    end = Date.now()
+    i++
+}
+console.log(i)
