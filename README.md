@@ -8,16 +8,16 @@
 
 ### 第一章 一大波数正在靠近 --- 排序
 
-* [x] 最快速的排序 - 桶排序 [./list/class1/barrelSort.md](/list/class1/barrelSort.md)
-* [x] 邻居好说话 - 冒泡排序 [./list/class1/BubbleSort.md](/list/class1/BubbleSort.md)
-* [x] 最常用的排序 - 快速排序 [./list/class1/quickSort.md](/list/class1/quickSort.md)
-* [x] 小哼买书
+* [x] 最快的排序——桶排序 [./list/class1/最快的排序——桶排序.md](/list/class1/最快的排序——桶排序.md)
+* [x] 邻居好说话——冒泡排序 [./list/class1/邻居好说话——冒泡排序.md](/list/class1/邻居好说话——冒泡排序.md)
+* [x] 最常用的排序——快速排序 [./list/class1/最常用的排序——快速排序.md](/list/class1/最常用的排序——快速排序.md)
+* [x] 小哼买书 [./list/class1/小哼买书.md](/list/class1/小哼买书.md)
 
 ### 第二章 栈 列队 链表
 
-* [x] 解密QQ号 - 列队 [./list/class2/decodeQQ](./list/class2/decodeQQ.md)
-* [x] 解密回文 - 栈 [./list/class2/stack](./list/class2/stack.md)
-* [x] 纸牌游戏 - 小猫钓鱼 [./list/class2/catFish](./list/class2/catFish.md)
+* [x] 解密QQ——列队 [./list/class2/解密QQ——列队](./list/class2/解密QQ——列队.md)
+* [x] 解密回文——栈 [./list/class2/解密回文——栈](./list/class2/解密回文——栈.md)
+* [x] 纸牌游戏——小猫钓鱼 [./list/class2/纸牌游戏——小猫钓鱼](./list/class2/纸牌游戏——小猫钓鱼.md)
 * [x] 链表 [./list/class2/链表](./list/class2/链表.md)
 * [ ] 模拟链表
 
