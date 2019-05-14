@@ -27,8 +27,8 @@
 
 * [x] 坑爹的奥数 [./list/class3/坑爹的奥数](./list/class3/坑爹的奥数.md)
 * [ ] 炸弹人
-* [ ] 火柴棍等式
-* [x] 数的全等式
+* [x] 火柴棍等式 [./list/class3/火柴棍等式](./list/class3/火柴棍等式.md)
+* [x] 数的全等式 [./list/class3/数的全等式](./list/class3/数的全等式.md)
 
 ### 万能的搜索
 
